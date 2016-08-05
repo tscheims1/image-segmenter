@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->openDirButton, SIGNAL (released()), this, SLOT (openDir()));
     connect(ui->prevImageButton, SIGNAL (released()), this, SLOT (prevImage()));
     connect(ui->nextImageButton, SIGNAL (released()), this, SLOT (nextImage()));
+    connect(ui->saveButton, SIGNAL (released()), this, SLOT (saveImage()));
+
 }
 void MainWindow::openDir()
 {
@@ -60,6 +62,16 @@ void MainWindow::prevImage()
     }
 
 }
+void MainWindow::saveImage()
+{
+    if(ui->drawingLabel->savePixmap(currentDir+"/"+"mask_"+(*imagesIt)))
+    {
+        QMessageBox msgBox;
+        msgBox.setText("Image successfull saved");
+        msgBox.exec();
+    }
+}
+
 QString MainWindow::buildImagePath(QString fileName)
 {
     return currentDir+"/"+fileName;

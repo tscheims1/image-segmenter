@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QMouseEvent>
 #include <QFileDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +32,7 @@ private slots:
     void openDir();
     void nextImage();
     void prevImage();
+    void saveImage();
 
 };
 

@@ -26,12 +26,6 @@ ClickableLabel::~ClickableLabel()
     delete pixmap;
     delete painter;
 }
-
-void ClickableLabel::mousePressEvent(QMouseEvent* event)
-{
-    qDebug() << "clicked"<<endl;
-    emit clicked();
-}
 void ClickableLabel::mouseMoveEvent(QMouseEvent* event)
 {
     if(isFirstNode)
@@ -49,10 +43,6 @@ void ClickableLabel::mouseMoveEvent(QMouseEvent* event)
 
 
 }
-void ClickableLabel::mouseReleaseEvent(QMouseEvent *event)
-{
-
-}
 void ClickableLabel::mouseDoubleClickEvent( QMouseEvent * event)
 {
     QBrush brush(QColor (255, 0, 0));
@@ -61,4 +51,8 @@ void ClickableLabel::mouseDoubleClickEvent( QMouseEvent * event)
     isFirstNode = true;
     path = QPainterPath();
 
+}
+bool ClickableLabel::savePixmap(QString fileName)
+{
+    return pixmap->save(fileName);
 }

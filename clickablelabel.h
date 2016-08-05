@@ -14,12 +14,11 @@ public:
     explicit ClickableLabel(QWidget* parent=0 );
     void setupPainter();
     ~ClickableLabel();
+    bool savePixmap(QString fileName);
 signals:
     void clicked();
 protected:
-    void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
-    void mouseReleaseEvent( QMouseEvent * event );
     void mouseDoubleClickEvent( QMouseEvent * event);
     QPainterPath path;
     QPainter *painter;
