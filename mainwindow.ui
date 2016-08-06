@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Image Segmenter</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="imageLabel">
@@ -62,7 +62,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>choose Filder</string>
+     <string>choose Folder</string>
     </property>
    </widget>
    <widget class="QPushButton" name="prevImageButton">
@@ -94,7 +94,7 @@
    <widget class="QPushButton" name="saveButton">
     <property name="geometry">
      <rect>
-      <x>380</x>
+      <x>490</x>
       <y>10</y>
       <width>101</width>
       <height>23</height>
@@ -102,6 +102,19 @@
     </property>
     <property name="text">
      <string>save</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="clearButton">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>10</y>
+      <width>101</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>clear</string>
     </property>
    </widget>
   </widget>

@@ -13,8 +13,10 @@ Q_OBJECT
 public:
     explicit ClickableLabel(QWidget* parent=0 );
     void setupPainter();
+    void setupPainter(QPixmap pm);
     ~ClickableLabel();
     bool savePixmap(QString fileName);
+    void clearMask();
 signals:
     void clicked();
 protected:

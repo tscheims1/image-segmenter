@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->prevImageButton, SIGNAL (released()), this, SLOT (prevImage()));
     connect(ui->nextImageButton, SIGNAL (released()), this, SLOT (nextImage()));
     connect(ui->saveButton, SIGNAL (released()), this, SLOT (saveImage()));
+    connect(ui->clearButton, SIGNAL (released()), this, SLOT (clearMask()));
 
 }
 void MainWindow::openDir()
@@ -26,13 +27,13 @@ void MainWindow::openDir()
     if(!images.isEmpty())
     {
         imagesIt = images.constBegin();
-        loadImage(buildImagePath(*imagesIt));
+        loadImage(*imagesIt);
     }
 
 }
 void MainWindow::loadImage(QString fileName)
 {
-    QImage image(fileName);
+    QImage image(buildImagePath(fileName));
     ui->imageLabel->setGeometry(ui->imageLabel->geometry().x(),
                                 ui->imageLabel->geometry().y(),
                                 image.width(),image.height());
@@ -41,40 +42,60 @@ void MainWindow::loadImage(QString fileName)
     ui->drawingLabel->setGeometry(ui->imageLabel->geometry().x(),
                                 ui->imageLabel->geometry().y(),
                                 image.width(),image.height());
+    QString maskName = getMaskDir()+fileName;
 
-    ui->drawingLabel->setupPainter();
+    if(QFile(maskName).exists())
+    {
+        QPixmap pm(maskName);
+        ui->drawingLabel->setupPainter(pm);
+    }
+    else
+        ui->drawingLabel->setupPainter();
+
+
 }
 void MainWindow::nextImage()
 {
-    if(imagesIt != images.constEnd())
+    if(imagesIt != nullptr && imagesIt != images.constEnd())
     {
         imagesIt++;
-        loadImage(buildImagePath(*imagesIt));
+        loadImage(*imagesIt);
 
     }
 }
 void MainWindow::prevImage()
 {
-    if(imagesIt !=images.constBegin())
+    if(imagesIt != nullptr && imagesIt !=images.constBegin())
     {
         imagesIt--;
-        loadImage(buildImagePath(*imagesIt));
+        loadImage(*imagesIt);
     }
 
 }
 void MainWindow::saveImage()
 {
-    if(ui->drawingLabel->savePixmap(currentDir+"/"+"mask_"+(*imagesIt)))
+    QString maskDirName = getMaskDir();
+    if(!QDir(maskDirName).exists())
+        QDir().mkdir(maskDirName);
+
+    if(ui->drawingLabel->savePixmap(maskDirName+(*imagesIt)))
     {
         QMessageBox msgBox;
         msgBox.setText("Image successfull saved");
         msgBox.exec();
     }
 }
-
+void MainWindow::clearMask()
+{
+    ui->drawingLabel->clearMask();
+}
 QString MainWindow::buildImagePath(QString fileName)
 {
     return currentDir+"/"+fileName;
+}
+QString MainWindow::getMaskDir()
+{
+    return currentDir+"/masks/";
 }
 
 MainWindow::~MainWindow()

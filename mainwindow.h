@@ -24,8 +24,9 @@ private:
     Ui::MainWindow *ui;
     void loadImage(QString fileName);
     QString buildImagePath(QString fileName);
+    QString getMaskDir();
     QStringList images;
-    QStringList::const_iterator imagesIt;
+    QStringList::const_iterator imagesIt = nullptr;
     QString currentDir;
 
 private slots:
@@ -33,6 +34,7 @@ private slots:
     void nextImage();
     void prevImage();
     void saveImage();
+    void clearMask();
 
 };
 

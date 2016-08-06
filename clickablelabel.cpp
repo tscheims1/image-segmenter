@@ -18,7 +18,19 @@ void ClickableLabel::setupPainter()
     painter->setOpacity(0.7);
     setPixmap(*pixmap);
 }
-
+void ClickableLabel::setupPainter(QPixmap pm)
+{
+    if(pixmap !=nullptr)
+    {
+        painter->end();
+        delete painter;
+        delete pixmap;
+    }
+    pixmap = new QPixmap(pm);
+    painter = new QPainter(pixmap);
+    painter->setOpacity(0.7);
+    setPixmap(*pixmap);
+}
 
 ClickableLabel::~ClickableLabel()
 {
@@ -52,6 +64,12 @@ void ClickableLabel::mouseDoubleClickEvent( QMouseEvent * event)
     path = QPainterPath();
 
 }
+void ClickableLabel::clearMask()
+{
+    pixmap->fill(QColor("transparent"));
+    setPixmap(*pixmap);
+}
+
 bool ClickableLabel::savePixmap(QString fileName)
 {
     return pixmap->save(fileName);
