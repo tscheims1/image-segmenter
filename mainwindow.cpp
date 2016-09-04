@@ -46,8 +46,21 @@ void MainWindow::loadImage(QString fileName)
 
     if(QFile(maskName).exists())
     {
-        QPixmap pm(maskName);
-        ui->drawingLabel->setupPainter(pm);
+        //Convert B/W Mask to Transparent Overlay
+        QImage img(maskName);
+        QImage tmpImage(img.width(),img.height(),QImage::Format_ARGB32);
+        tmpImage.fill(QColor("transparent"));
+        for(int x=0; x < img.width();x++)
+        {
+            for(int y =0; y< img.height();y++)
+            {
+                if(img.pixel(x,y)&0xFFFFFF)//Ignore Alpha Channel
+                {
+                    tmpImage.setPixel(x,y,0x82FF0000);//70% opaque Red
+                }
+            }
+        }
+        ui->drawingLabel->setupPainter(QPixmap::fromImage(tmpImage));
     }
     else
         ui->drawingLabel->setupPainter();
