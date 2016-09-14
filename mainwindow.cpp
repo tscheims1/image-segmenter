@@ -21,7 +21,7 @@ void MainWindow::openDir()
                                                  QFileDialog::DontResolveSymlinks);
     QDir recoredDir(currentDir);
     QStringList filters;
-    filters << "*.jpg" << "*.png";
+    filters << "*.png";
     recoredDir.setNameFilters(filters);
     images = recoredDir.entryList(QDir::NoDotAndDotDot | QDir::Filter::Files);
     if(!images.isEmpty())
