@@ -69,18 +69,19 @@ void MainWindow::loadImage(QString fileName)
 }
 void MainWindow::nextImage()
 {
-    if(imagesIt != nullptr && imagesIt != images.constEnd())
+
+    if(imagesIt != nullptr &&imagesIt+1 != images.constEnd())
     {
-        imagesIt++;
+        ++imagesIt;
         loadImage(*imagesIt);
 
     }
 }
 void MainWindow::prevImage()
 {
-    if(imagesIt != nullptr && imagesIt !=images.constBegin())
+    if(imagesIt != nullptr && imagesIt != images.constBegin())
     {
-        imagesIt--;
+        --imagesIt;
         loadImage(*imagesIt);
     }
 

@@ -23,8 +23,8 @@ protected:
     void mouseMoveEvent(QMouseEvent* event);
     void mouseDoubleClickEvent( QMouseEvent * event);
     QPainterPath path;
-    QPainter *painter;
-    QPixmap *pixmap;
+    QPainter *painter = nullptr;
+    QPixmap *pixmap = nullptr;
 private:
     bool isFirstNode = true;
 };

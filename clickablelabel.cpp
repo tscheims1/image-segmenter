@@ -26,6 +26,7 @@ void ClickableLabel::setupPainter(QPixmap pm)
         delete painter;
         delete pixmap;
     }
+
     pixmap = new QPixmap(pm);
     painter = new QPainter(pixmap);
     painter->setOpacity(0.7);
@@ -68,6 +69,8 @@ void ClickableLabel::clearMask()
 {
     pixmap->fill(QColor("transparent"));
     setPixmap(*pixmap);
+    isFirstNode = true;
+    path = QPainterPath();
 }
 
 bool ClickableLabel::savePixmap(QString fileName)
