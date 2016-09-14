@@ -77,12 +77,14 @@ bool ClickableLabel::savePixmap(QString fileName)
 {
     //Save Image as B/W Mask
     QImage image = pixmap->toImage();
-    QImage tmpMask(image.width(),image.height(),QImage::Format_ARGB32);
+    QImage tmpMask(image.width(),image.height(),QImage::Format_RGB32);
     for(int x=0; x < image.width();x++)
         for(int y =0; y < image.height();y++)
         {
             if(image.pixel(x,y))
-                tmpMask.setPixel(x,y,0xFFFFFFFF);
+                tmpMask.setPixel(x,y,0xFFFFFF);
+            else
+                tmpMask.setPixel(x,y,0x00);
         }
     return tmpMask.save(fileName);
 }
